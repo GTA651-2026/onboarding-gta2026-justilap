@@ -1,0 +1,143 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8c4f02e3-b1de-43b9-8aea-94358b00be18",
+      "name": "When chat message received",
+      "webhookId": "aeefd29d-a556-47e0-8f5c-bd3ab8bd8aa0"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "Parle toujours en français\nVotre nom est Coco\nVous êtes au Québec\nTu dois toujours avoir un langage correct sans utiliser de mots vulgaires"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "ded5e6b6-be03-4a49-99bf-860f23a271e4",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        176
+      ],
+      "id": "eaf77a08-f044-4b5f-8052-d653161abd2a",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "524kKJwjLebAWN53",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        304,
+        192
+      ],
+      "id": "a062cd36-9ca7-47c8-bd48-023d856129cb",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "Describe Image",
+        "image_url": "https://picsart.com/landings-ssr/_next/image/?url=https%3A%2F%2Fpastatic.picsart.com%2F91149523360174409981.jpg&w=1366&q=75"
+      },
+      "type": "@picsart/n8n-nodes-picsart-creative-apis.picsartImageTool",
+      "typeVersion": 1,
+      "position": [
+        464,
+        192
+      ],
+      "id": "1c921754-e108-4595-9129-7f9d526387f2",
+      "name": "Describe Image Image URL in Picsart Image AI"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Describe Image Image URL in Picsart Image AI": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "d5859be5-f0dc-458c-b24f-1ddbb29378eb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "798472d1eeb27ec7dd475ec5e5701cf9e0d65d9d7784e1924087e48dc542b854"
+  },
+  "id": "iVTHxOqwJNyaSpFv",
+  "tags": []
+}
